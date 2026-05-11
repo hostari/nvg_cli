@@ -15,7 +15,7 @@ Command-line interface for managing Navegante infrastructure and deployments.
 
 Before using the CLI, you must complete the following steps on the Navegante web platform:
 
-1. **Sign up** at navegante.io (or your Navegante instance)
+1. **Sign up** for a Navegante account at [https://navegante.app](navegante.app)
 2. **Connect your GitHub account** via OAuth (required for repository access)
 3. **Add a payment method** on Stripe (required for paid plans)
 
