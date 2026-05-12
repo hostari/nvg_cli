@@ -50,7 +50,11 @@ pub enum Command {
 #[derive(Subcommand, Debug)]
 pub enum AuthCommand {
     /// Log in via device flow
-    Login,
+    Login {
+        /// Print the auth URL and code then exit without waiting for approval
+        #[arg(long)]
+        no_wait: bool,
+    },
     /// Log out and revoke the local token
     Logout,
     /// Show current auth status
