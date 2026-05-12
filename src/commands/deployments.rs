@@ -6,6 +6,37 @@ use crate::commands::Context;
 use crate::output;
 use anyhow::{Context as _, Result};
 
+pub async fn commits(
+    ctx: &Context,
+    project_id: String,
+    app_id: String,
+    branch: Option<String>,
+    limit: Option<u32>,
+) -> Result<()> {
+    let pid: i64 = project_id.parse().context("invalid project id")?;
+    let aid: i64 = app_id.parse().context("invalid app id")?;
+    let page = ctx
+        .api
+        .deployments_commits(pid, aid, branch.as_deref(), limit)
+        .await?;
+
+    if ctx.json {
+        println!("{}", serde_json::to_string_pretty(&page)?);
+        return Ok(());
+    }
+
+    if page.data.is_empty() {
+        println!("No commits found.");
+        return Ok(());
+    }
+
+    for c in &page.data {
+        let short_sha = &c.sha[..7.min(c.sha.len())];
+        println!("{short_sha}  {}", c.message);
+    }
+    Ok(())
+}
+
 pub async fn list(
     ctx: &Context,
     project_id: String,

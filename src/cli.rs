@@ -148,6 +148,12 @@ pub enum NestedProjectCommand {
         project_id: String,
         app_id: String,
     },
+    DeploymentsCommits {
+        project_id: String,
+        app_id: String,
+        branch: Option<String>,
+        limit: Option<u32>,
+    },
     DeploymentsList {
         project_id: String,
         app_id: String,
@@ -199,6 +205,30 @@ pub fn parse_nested(args: &[String]) -> Result<NestedProjectCommand, String> {
             let dep_action = iter.next().ok_or("expected deployments subcommand")?;
             let rest: Vec<&str> = iter.collect();
             match dep_action {
+                "commits" => {
+                    let mut branch = None;
+                    let mut limit = None;
+                    let mut i = 0;
+                    while i < rest.len() {
+                        match rest[i] {
+                            "--branch" => {
+                                branch = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--limit" => {
+                                limit = rest.get(i + 1).and_then(|s| s.parse().ok());
+                                i += 2;
+                            }
+                            _ => i += 1,
+                        }
+                    }
+                    Ok(NestedProjectCommand::DeploymentsCommits {
+                        project_id,
+                        app_id,
+                        branch,
+                        limit,
+                    })
+                }
                 "list" => {
                     let mut page = None;
                     let mut i = 0;

@@ -13,6 +13,17 @@ pub struct DeploymentsPage {
     pub total: u32,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct CommitSummary {
+    pub sha: String,
+    pub message: String,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct DeploymentCommitsPage {
+    pub data: Vec<CommitSummary>,
+}
+
 #[derive(Debug, Deserialize)]
 struct DeploymentEnvelope {
     data: AppDeployment,
@@ -34,6 +45,31 @@ struct DeploymentCreatePayload<'a> {
 }
 
 impl ApiClient {
+    /// GET /cli/v1/infrastructure_projects/:pid/app_configurations/:aid/app_deployments/commits
+    pub async fn deployments_commits(
+        &self,
+        project_id: i64,
+        app_id: i64,
+        branch: Option<&str>,
+        limit: Option<u32>,
+    ) -> Result<DeploymentCommitsPage, ApiError> {
+        let mut path = format!(
+            "/cli/v1/infrastructure_projects/{project_id}/app_configurations/{app_id}/app_deployments/commits"
+        );
+        let mut query: Vec<String> = Vec::new();
+        if let Some(b) = branch {
+            query.push(format!("branch={b}"));
+        }
+        if let Some(l) = limit {
+            query.push(format!("limit={l}"));
+        }
+        if !query.is_empty() {
+            path.push('?');
+            path.push_str(&query.join("&"));
+        }
+        self.get(&path).await
+    }
+
     /// GET /cli/v1/infrastructure_projects/:pid/app_configurations/:aid/app_deployments
     pub async fn deployments_list(
         &self,
