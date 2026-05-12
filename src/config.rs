@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
 
-pub const DEFAULT_API_URL: &str = "https://app.navegante.io";
+pub const DEFAULT_API_URL: &str = "https://app.navegante.app";
 pub const DEFAULT_PROFILE_NAME: &str = "default";
 
 #[derive(Debug, Default, Serialize, Deserialize)]
