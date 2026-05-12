@@ -48,8 +48,16 @@ DEPLOYMENTS  (nested under an app)
   nvg projects <PROJECT_ID> apps <APP_ID> deployments list [--page N]
   nvg projects <PROJECT_ID> apps <APP_ID> deployments show <VERSION>
   nvg projects <PROJECT_ID> apps <APP_ID> deployments commits [--branch <BRANCH>] [--limit N]
-  nvg projects <PROJECT_ID> apps <APP_ID> deployments create [OPTIONS] \
-    [--branch <BRANCH>] [--commit <SHA>] [--image <IMAGE>]
+  nvg projects <PROJECT_ID> apps <APP_ID> deployments create [OPTIONS]
+    --branch <BRANCH>             Git branch to deploy (overrides app default)
+    --commit <SHA>                Specific commit SHA to deploy
+    --port <PORT>                 Container port to expose (default: 80)
+    --build-command <CMD>         Build command for Node/static apps
+    --publish-dir <DIR>           Output directory to publish (e.g. dist/)
+    --node-version <VERSION>      Node.js version to use (default: 18)
+    --docker-image <IMAGE>        Pre-built Docker image to deploy
+    --dockerfile <PATH>           Path to Dockerfile (enables Docker build)
+    --build-context <DIR>         Docker build context directory
   nvg projects <PROJECT_ID> apps <APP_ID> deployments logs <VERSION> \
     [--follow]
 
