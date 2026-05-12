@@ -55,11 +55,11 @@ CONFIGURATION
   File: ~/.config/nvg/config.toml
 
   [default]
-  api_base_url = "https://navegante.io"
+  api_base_url = "https://navegante.app"
   token        = "nvg_..."
 
   [staging]
-  api_base_url = "https://staging.navegante.io"
+  api_base_url = "https://staging.navegante.app"
   token        = "nvg_..."
 
   Switch profiles: nvg --profile staging ...
