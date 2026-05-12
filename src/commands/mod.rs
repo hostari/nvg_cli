@@ -6,6 +6,7 @@ pub mod dcs;
 pub mod deployments;
 pub mod orgs;
 pub mod projects;
+pub mod skill;
 
 use crate::api::ApiClient;
 use crate::cli::{Cli, Command, ProjectsCommand};
@@ -29,6 +30,12 @@ impl Context {
 }
 
 pub async fn dispatch(args: Cli) -> Result<()> {
+    // skill needs no auth or config
+    if let Command::Skill = args.command {
+        skill::run();
+        return Ok(());
+    }
+
     let ctx = Context::build(args.profile.as_deref(), args.json)?;
 
     match args.command {
@@ -42,5 +49,6 @@ pub async fn dispatch(args: Cli) -> Result<()> {
             }
             other => projects::run(other, &ctx).await,
         },
+        Command::Skill => unreachable!("handled above"),
     }
 }

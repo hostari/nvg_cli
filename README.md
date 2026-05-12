@@ -141,6 +141,7 @@ Commands:
   orgs          List organizations
   datacenters   List datacenters
   projects      Manage infrastructure projects
+  skill         Show the quick-reference skill guide
 
 Options:
       --profile <PROFILE>  Config profile to use [default: default]
