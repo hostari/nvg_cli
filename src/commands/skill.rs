@@ -18,7 +18,8 @@ OVERVIEW
     -h, --help         Print help for any command
 
 AUTHENTICATION
-  nvg auth login         Device-flow login (opens browser)
+  nvg auth login             Device-flow login (opens browser)
+  nvg auth login --no-wait   Print URL/code and exit (no polling)
   nvg auth logout        Remove saved token
   nvg auth status        Show current user
   nvg auth tokens list   List API tokens
