@@ -51,7 +51,7 @@ DEPLOYMENTS  (nested under an app)
   nvg projects <PROJECT_ID> apps <APP_ID> deployments create [OPTIONS]
     --branch <BRANCH>             Git branch to deploy (overrides app default)
     --commit <SHA>                Specific commit SHA to deploy
-    --port <PORT>                 Container port to expose (default: 80)
+    --port <PORT>                 Container port to expose (default: 3000)
     --build-command <CMD>         Build command for Node/static apps
     --publish-dir <DIR>           Output directory to publish (e.g. dist/)
     --node-version <VERSION>      Node.js version to use (default: 18)
