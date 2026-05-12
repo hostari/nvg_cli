@@ -59,6 +59,8 @@ pub enum AuthCommand {
     Logout,
     /// Show current auth status
     Status,
+    /// Poll for completion of a pending `login --no-wait` device flow
+    Poll,
     /// Manage API tokens
     Tokens {
         #[command(subcommand)]
