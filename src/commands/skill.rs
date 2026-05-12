@@ -47,7 +47,8 @@ APPS  (nested under a project)
 DEPLOYMENTS  (nested under an app)
   nvg projects <PROJECT_ID> apps <APP_ID> deployments list [--page N]
   nvg projects <PROJECT_ID> apps <APP_ID> deployments show <VERSION>
-  nvg projects <PROJECT_ID> apps <APP_ID> deployments create \
+  nvg projects <PROJECT_ID> apps <APP_ID> deployments commits [--branch <BRANCH>] [--limit N]
+  nvg projects <PROJECT_ID> apps <APP_ID> deployments create [OPTIONS] \
     [--branch <BRANCH>] [--commit <SHA>] [--image <IMAGE>]
   nvg projects <PROJECT_ID> apps <APP_ID> deployments logs <VERSION> \
     [--follow]
@@ -79,8 +80,7 @@ TIPS
   • All commands accept --json for scripting / piping to jq.
   • Run any command with -h for detailed flag descriptions.
   • Deployment logs stream in real-time with --follow.
-
-Copyright (c) 2026 HOSTARI PHILIPPINES, INC.
+  • Use `deployments commits` to browse recent SHAs without needing gh.
 "#
     );
 }

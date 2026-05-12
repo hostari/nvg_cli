@@ -28,6 +28,9 @@ pub async fn run_nested(cmd: NestedProjectCommand, ctx: &Context) -> Result<()> 
         AppsShow { project_id, app_id } => {
             crate::commands::apps::show(ctx, &project_id, &app_id).await?;
         }
+        DeploymentsCommits { project_id, app_id, branch, limit } => {
+            crate::commands::deployments::commits(ctx, project_id, app_id, branch, limit).await?;
+        }
         DeploymentsList { project_id, app_id, page } => {
             crate::commands::deployments::list(ctx, project_id, app_id, page).await?;
         }

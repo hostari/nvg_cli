@@ -118,7 +118,11 @@ nvg projects 1 apps 2 show
 # List deployments for an app
 nvg projects 1 apps 2 deployments list
 
-# Create a new deployment
+# Browse recent commits to pick a SHA (no gh CLI needed)
+nvg projects 1 apps 2 deployments commits
+nvg projects 1 apps 2 deployments commits --branch develop --limit 20
+
+# Create a new deployment [OPTIONS]
 nvg projects 1 apps 2 deployments create \
   --branch main \
   --commit abc123
@@ -185,6 +189,7 @@ nvg projects <ID> apps <APP_ID> show
 # Deployments
 nvg projects <ID> apps <APP_ID> deployments list [--page N]
 nvg projects <ID> apps <APP_ID> deployments show <VERSION>
+nvg projects <ID> apps <APP_ID> deployments commits [--branch <BRANCH>] [--limit N]
 nvg projects <ID> apps <APP_ID> deployments create [OPTIONS]
 nvg projects <ID> apps <APP_ID> deployments logs <VERSION> [--follow]
 ```
