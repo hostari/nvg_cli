@@ -43,6 +43,8 @@ pub enum Command {
     },
     /// Infrastructure project commands
     Projects(ProjectsArgs),
+    /// Show the nvg CLI skill / quick-reference guide
+    Skill,
 }
 
 #[derive(Subcommand, Debug)]
