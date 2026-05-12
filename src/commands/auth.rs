@@ -13,7 +13,7 @@ use std::time::{Duration, Instant};
 
 pub async fn run(cmd: AuthCommand, ctx: &Context) -> Result<()> {
     match cmd {
-        AuthCommand::Login => login(ctx).await,
+        AuthCommand::Login { no_wait } => login(ctx, no_wait).await,
         AuthCommand::Logout => logout(ctx).await,
         AuthCommand::Status => status(ctx).await,
         AuthCommand::Tokens { command } => match command {
@@ -31,7 +31,7 @@ struct StatusReport<'a> {
     viewer: Option<crate::api::models::Viewer>,
 }
 
-async fn login(ctx: &Context) -> Result<()> {
+async fn login(ctx: &Context, no_wait: bool) -> Result<()> {
     let start = ctx.api.device_authorization_start().await?;
 
     if ctx.json {
@@ -55,6 +55,10 @@ async fn login(ctx: &Context) -> Result<()> {
             start.verification_uri_complete
         );
         println!();
+    }
+
+    if no_wait {
+        return Ok(());
     }
 
     // Best-effort browser open.
