@@ -105,9 +105,15 @@ pub async fn create(
     ctx: &Context,
     project_id: String,
     app_id: String,
-    image: Option<String>,
     branch: Option<String>,
     commit: Option<String>,
+    port: Option<u16>,
+    build_command: Option<String>,
+    publish_dir: Option<String>,
+    node_version: Option<String>,
+    docker_image: Option<String>,
+    dockerfile: Option<String>,
+    build_context: Option<String>,
 ) -> Result<()> {
     require_auth(ctx)?;
     let pid = parse_id(&project_id, "project_id")?;
@@ -119,7 +125,13 @@ pub async fn create(
             aid,
             branch.as_deref(),
             commit.as_deref(),
-            image.as_deref(),
+            port,
+            build_command.as_deref(),
+            publish_dir.as_deref(),
+            node_version.as_deref(),
+            docker_image.as_deref(),
+            dockerfile.as_deref(),
+            build_context.as_deref(),
         )
         .await?;
 

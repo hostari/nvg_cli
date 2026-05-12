@@ -41,7 +41,19 @@ struct DeploymentCreatePayload<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     commit_hash: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    image: Option<&'a str>,
+    app_port: Option<u16>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    node_build_commands: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    node_publish_directory: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    node_version: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    docker_image: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    dockerfile_path: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    dockerfile_build_context: Option<&'a str>,
 }
 
 impl ApiClient {
@@ -114,21 +126,33 @@ impl ApiClient {
 
     /// POST .../app_deployments
     ///
-    /// Always submits the "deploy" action server-side. Optional branch,
-    /// commit, and image override the AppConfiguration defaults.
+    /// Always submits the "deploy" action server-side. All fields are optional
+    /// overrides; the server falls back to AppConfiguration defaults.
     pub async fn deployments_create(
         &self,
         project_id: i64,
         app_id: i64,
         branch: Option<&str>,
         commit: Option<&str>,
-        image: Option<&str>,
+        port: Option<u16>,
+        build_command: Option<&str>,
+        publish_dir: Option<&str>,
+        node_version: Option<&str>,
+        docker_image: Option<&str>,
+        dockerfile: Option<&str>,
+        build_context: Option<&str>,
     ) -> Result<AppDeployment, ApiError> {
         let body = DeploymentCreateBody {
             deployment: DeploymentCreatePayload {
                 branch_name: branch,
                 commit_hash: commit,
-                image,
+                app_port: port,
+                node_build_commands: build_command,
+                node_publish_directory: publish_dir,
+                node_version,
+                docker_image,
+                dockerfile_path: dockerfile,
+                dockerfile_build_context: build_context,
             },
         };
         let env: DeploymentEnvelope = self

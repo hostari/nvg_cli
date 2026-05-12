@@ -167,9 +167,15 @@ pub enum NestedProjectCommand {
     DeploymentsCreate {
         project_id: String,
         app_id: String,
-        image: Option<String>,
         branch: Option<String>,
         commit: Option<String>,
+        port: Option<u16>,
+        build_command: Option<String>,
+        publish_dir: Option<String>,
+        node_version: Option<String>,
+        docker_image: Option<String>,
+        dockerfile: Option<String>,
+        build_context: Option<String>,
     },
     DeploymentsLogs {
         project_id: String,
@@ -255,16 +261,18 @@ pub fn parse_nested(args: &[String]) -> Result<NestedProjectCommand, String> {
                     })
                 }
                 "create" => {
-                    let mut image = None;
                     let mut branch = None;
                     let mut commit = None;
+                    let mut port: Option<u16> = None;
+                    let mut build_command = None;
+                    let mut publish_dir = None;
+                    let mut node_version = None;
+                    let mut docker_image = None;
+                    let mut dockerfile = None;
+                    let mut build_context = None;
                     let mut i = 0;
                     while i < rest.len() {
                         match rest[i] {
-                            "--image" => {
-                                image = rest.get(i + 1).map(|s| s.to_string());
-                                i += 2;
-                            }
                             "--branch" => {
                                 branch = rest.get(i + 1).map(|s| s.to_string());
                                 i += 2;
@@ -273,15 +281,49 @@ pub fn parse_nested(args: &[String]) -> Result<NestedProjectCommand, String> {
                                 commit = rest.get(i + 1).map(|s| s.to_string());
                                 i += 2;
                             }
+                            "--port" => {
+                                port = rest.get(i + 1).and_then(|s| s.parse().ok());
+                                i += 2;
+                            }
+                            "--build-command" => {
+                                build_command = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--publish-dir" => {
+                                publish_dir = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--node-version" => {
+                                node_version = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--docker-image" => {
+                                docker_image = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--dockerfile" => {
+                                dockerfile = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
+                            "--build-context" => {
+                                build_context = rest.get(i + 1).map(|s| s.to_string());
+                                i += 2;
+                            }
                             _ => i += 1,
                         }
                     }
                     Ok(NestedProjectCommand::DeploymentsCreate {
                         project_id,
                         app_id,
-                        image,
                         branch,
                         commit,
+                        port,
+                        build_command,
+                        publish_dir,
+                        node_version,
+                        docker_image,
+                        dockerfile,
+                        build_context,
                     })
                 }
                 "logs" => {

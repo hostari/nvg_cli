@@ -37,8 +37,8 @@ pub async fn run_nested(cmd: NestedProjectCommand, ctx: &Context) -> Result<()> 
         DeploymentsShow { project_id, app_id, version } => {
             crate::commands::deployments::show(ctx, project_id, app_id, version).await?;
         }
-        DeploymentsCreate { project_id, app_id, image, branch, commit } => {
-            crate::commands::deployments::create(ctx, project_id, app_id, image, branch, commit).await?;
+        DeploymentsCreate { project_id, app_id, branch, commit, port, build_command, publish_dir, node_version, docker_image, dockerfile, build_context } => {
+            crate::commands::deployments::create(ctx, project_id, app_id, branch, commit, port, build_command, publish_dir, node_version, docker_image, dockerfile, build_context).await?;
         }
         DeploymentsLogs { project_id, app_id, version, follow } => {
             crate::commands::deployments::logs(ctx, project_id, app_id, version, follow).await?;
