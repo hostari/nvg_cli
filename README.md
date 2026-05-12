@@ -242,4 +242,6 @@ See `cli-plan.md` for the full v0.1.0 specification and implementation roadmap.
 
 ## License
 
+Copyright (c) 2026 HOSTARI PHILIPPINES, INC.
+
 See [LICENSE](LICENSE) file.
