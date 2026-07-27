@@ -23,7 +23,20 @@ The CLI uses the Navegante web platform's existing user account, GitHub OAuth to
 
 ## Installation
 
-### Build from source
+### TypeScript MicroApp client
+
+The standalone Node.js 20+ client and `nvg micro-apps` CLI live in [`typescript/`](typescript/README.md):
+
+```bash
+cd typescript
+npm install
+npm run check
+npm link
+```
+
+It can also be imported as `@hostari/nvg`. The TypeScript implementation shares the existing profile configuration and adds MicroApp creation, direct archive upload, publication finalization and polling, and write-only environment setup.
+
+### Build the Rust CLI from source
 
 Requires Rust 1.70 or later.
 
