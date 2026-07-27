@@ -1,0 +1,48 @@
+{
+  "name": "@hostari/nvg",
+  "version": "0.1.0",
+  "description": "Standalone TypeScript client and CLI for Navegante MicroApps",
+  "type": "module",
+  "bin": {
+    "nvg": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsup",
+    "prepack": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "smol-toml": "^1.4.2",
+    "tar": "^7.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hostari/nvg_cli.git",
+    "directory": "typescript"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

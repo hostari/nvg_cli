@@ -24,3 +24,8 @@ target
 # Added by cargo
 
 /target
+
+# TypeScript client build and dependencies
+typescript/node_modules/
+typescript/dist/
+typescript/*.tgz
